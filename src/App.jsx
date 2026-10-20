@@ -16,6 +16,26 @@ function formatDate(iso) {
     day: "numeric",
   });
 }
+const SMALL_WORDS = new Set(["of", "and", "the", "at", "for", "in"]);
+const KEEP_UPPER = new Set(["NC", "II", "III", "IV", "US", "LLC", "INC"]);
+
+function displayName(name) {
+  const stripped = name
+    .replace(/,\s*(TOWN|CITY|VILLAGE|COUNTY)\s+OF\s*$/i, "")
+    .replace(/^(TOWN|CITY|VILLAGE|COUNTY)\s+OF\s+/i, "")
+    .trim();
+
+  return stripped
+    .split(/\s+/)
+    .map((word, i) => {
+      const upper = word.toUpperCase();
+      if (KEEP_UPPER.has(upper)) return upper;
+      const lower = word.toLowerCase();
+      if (i > 0 && SMALL_WORDS.has(lower)) return lower;
+      return lower.replace(/(^|[-/(])([a-z])/g, (m, p, c) => p + c.toUpperCase());
+    })
+    .join(" ");
+}
 
 function SystemDetail({ system, units, allContaminants }) {
   const reported = new Set([
@@ -26,7 +46,7 @@ function SystemDetail({ system, units, allContaminants }) {
 
   return (
     <article className="system-card">
-      <h3>{system.name}</h3>
+      <h3>{displayName(system.name)}</h3>
       <p>
         Water system ID: {system.id} · ZIP codes served:{" "}
         {system.zips.join(", ") || "not listed"}
@@ -197,7 +217,7 @@ function App() {
                   className={s.id === selectedId ? "match active" : "match"}
                   onClick={() => setSelectedId(s.id)}
                 >
-                  {s.name} <span>{s.id}</span>
+                  {displayName(s.name)} <span>{s.id}</span>
                 </button>
               ))}
             </div>
