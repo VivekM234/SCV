@@ -269,3 +269,110 @@ button:disabled {
   max-width: 640px;
   margin: 30px auto 0;
 }
+.table-wrap {
+  overflow-x: auto;
+}
+
+.chem-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.chem-table th,
+.chem-table td {
+  text-align: left;
+  padding: 10px 14px 10px 0;
+  border-top: 1px solid #e4e9e3;
+  vertical-align: top;
+}
+
+.chem-table th {
+  border-top: 0;
+  color: #718078;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.viewer-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 18px;
+  margin: 14px 0;
+  align-items: start;
+}
+
+.viewer-box {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border: 1px solid #dce4dc;
+  border-radius: 10px;
+  background: white;
+  overflow: hidden;
+}
+
+.viewer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.viewer-info p {
+  margin: 6px 0 0;
+}
+
+.picker {
+  display: block;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.picker select {
+  font: inherit;
+  padding: 8px 10px;
+  margin-left: 8px;
+  border: 1px solid #cbd7cd;
+  border-radius: 8px;
+  background: white;
+  color: #17332e;
+}
+
+button.ghost {
+  align-self: flex-start;
+  background: white;
+  color: #1e5547;
+  border: 1px solid #1e5547;
+  padding: 8px 16px;
+  margin: 6px 0;
+}
+
+button.ghost:hover {
+  background: #eef4ee;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #586c65;
+}
+
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+@media (max-width: 650px) {
+  .viewer-card {
+    grid-template-columns: 1fr;
+  }
+
+  .viewer-box {
+    height: 280px;
+  }
+}

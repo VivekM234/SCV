@@ -1,0 +1,706 @@
+{
+ "method": "Morgan fingerprints (radius 2, 2048 bits) compared with Tanimoto similarity",
+ "references": [
+  "PFOA",
+  "PFOS"
+ ],
+ "disclaimer": "These scores describe structural similarity only. They are not a measure of toxicity, and similar structure does not show that two compounds have the same effects on the body.",
+ "compounds": [
+  {
+   "name": "PFBA",
+   "fullName": "perfluorobutanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C4HF7O2",
+   "carbonAtoms": 4,
+   "similarityToPFOA": 0.778,
+   "similarityToPFOS": 0.32,
+   "mostSimilar": [
+    {
+     "name": "PFPeA",
+     "similarity": 0.824
+    },
+    {
+     "name": "PFUnA",
+     "similarity": 0.778
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 0.778
+    }
+   ]
+  },
+  {
+   "name": "PFPeA",
+   "fullName": "perfluoropentanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C5HF9O2",
+   "carbonAtoms": 5,
+   "similarityToPFOA": 0.941,
+   "similarityToPFOS": 0.36,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 0.941
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 0.941
+    },
+    {
+     "name": "PFTA",
+     "similarity": 0.941
+    }
+   ]
+  },
+  {
+   "name": "PFHxA",
+   "fullName": "perfluorohexanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C6HF11O2",
+   "carbonAtoms": 6,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFHpA",
+   "fullName": "perfluoroheptanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C7HF13O2",
+   "carbonAtoms": 7,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFOA",
+   "fullName": "perfluorooctanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C8HF15O2",
+   "carbonAtoms": 8,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFNA",
+   "fullName": "perfluorononanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C9HF17O2",
+   "carbonAtoms": 9,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFDA",
+   "fullName": "perfluorodecanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C10HF19O2",
+   "carbonAtoms": 10,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFUnA",
+   "fullName": "perfluoroundecanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C11HF21O2",
+   "carbonAtoms": 11,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFOA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFDoA",
+   "fullName": "perfluorododecanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C12HF23O2",
+   "carbonAtoms": 12,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFTrDA",
+   "fullName": "perfluorotridecanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C13HF25O2",
+   "carbonAtoms": 13,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFOA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFTA",
+   "fullName": "perfluorotetradecanoic acid",
+   "family": "Perfluoroalkyl carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C14HF27O2",
+   "carbonAtoms": 14,
+   "similarityToPFOA": 1.0,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "PFUnA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFTrDA",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFOA",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFBS",
+   "fullName": "perfluorobutanesulfonic acid",
+   "family": "Perfluoroalkane sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C4HF9O3S",
+   "carbonAtoms": 4,
+   "similarityToPFOA": 0.36,
+   "similarityToPFOS": 0.944,
+   "mostSimilar": [
+    {
+     "name": "PFPeS",
+     "similarity": 0.944
+    },
+    {
+     "name": "PFOS",
+     "similarity": 0.944
+    },
+    {
+     "name": "PFHxS",
+     "similarity": 0.944
+    }
+   ]
+  },
+  {
+   "name": "PFPeS",
+   "fullName": "perfluoropentanesulfonic acid",
+   "family": "Perfluoroalkane sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C5HF11O3S",
+   "carbonAtoms": 5,
+   "similarityToPFOA": 0.4,
+   "similarityToPFOS": 1.0,
+   "mostSimilar": [
+    {
+     "name": "PFOS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFHxS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFHpS",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFHxS",
+   "fullName": "perfluorohexanesulfonic acid",
+   "family": "Perfluoroalkane sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C6HF13O3S",
+   "carbonAtoms": 6,
+   "similarityToPFOA": 0.4,
+   "similarityToPFOS": 1.0,
+   "mostSimilar": [
+    {
+     "name": "PFPeS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFOS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFHpS",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFHpS",
+   "fullName": "perfluoroheptanesulfonic acid",
+   "family": "Perfluoroalkane sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C7HF15O3S",
+   "carbonAtoms": 7,
+   "similarityToPFOA": 0.4,
+   "similarityToPFOS": 1.0,
+   "mostSimilar": [
+    {
+     "name": "PFPeS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFOS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFHxS",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "PFOS",
+   "fullName": "perfluorooctanesulfonic acid",
+   "family": "Perfluoroalkane sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C8HF17O3S",
+   "carbonAtoms": 8,
+   "similarityToPFOA": 0.4,
+   "similarityToPFOS": 1.0,
+   "mostSimilar": [
+    {
+     "name": "PFPeS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFHxS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFHpS",
+     "similarity": 1.0
+    }
+   ]
+  },
+  {
+   "name": "4:2 FTS",
+   "fullName": "4:2 fluorotelomer sulfonic acid",
+   "family": "Fluorotelomer sulfonic acid",
+   "smiles": "OS(=O)(=O)CCC(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C6H5F9O3S",
+   "carbonAtoms": 6,
+   "similarityToPFOA": 0.3,
+   "similarityToPFOS": 0.429,
+   "mostSimilar": [
+    {
+     "name": "8:2 FTS",
+     "similarity": 0.957
+    },
+    {
+     "name": "6:2 FTS",
+     "similarity": 0.957
+    },
+    {
+     "name": "PFBS",
+     "similarity": 0.444
+    }
+   ]
+  },
+  {
+   "name": "6:2 FTS",
+   "fullName": "6:2 fluorotelomer sulfonic acid",
+   "family": "Fluorotelomer sulfonic acid",
+   "smiles": "OS(=O)(=O)CCC(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C8H5F13O3S",
+   "carbonAtoms": 8,
+   "similarityToPFOA": 0.333,
+   "similarityToPFOS": 0.464,
+   "mostSimilar": [
+    {
+     "name": "8:2 FTS",
+     "similarity": 1.0
+    },
+    {
+     "name": "4:2 FTS",
+     "similarity": 0.957
+    },
+    {
+     "name": "PFPeS",
+     "similarity": 0.464
+    }
+   ]
+  },
+  {
+   "name": "8:2 FTS",
+   "fullName": "8:2 fluorotelomer sulfonic acid",
+   "family": "Fluorotelomer sulfonic acid",
+   "smiles": "OS(=O)(=O)CCC(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C10H5F17O3S",
+   "carbonAtoms": 10,
+   "similarityToPFOA": 0.333,
+   "similarityToPFOS": 0.464,
+   "mostSimilar": [
+    {
+     "name": "6:2 FTS",
+     "similarity": 1.0
+    },
+    {
+     "name": "4:2 FTS",
+     "similarity": 0.957
+    },
+    {
+     "name": "PFPeS",
+     "similarity": 0.464
+    }
+   ]
+  },
+  {
+   "name": "NEtFOSAA",
+   "fullName": "N-ethyl perfluorooctanesulfonamidoacetic acid",
+   "family": "N-alkyl perfluorooctanesulfonamidoacetic acid",
+   "smiles": "CCN(CC(=O)O)S(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C12H8F17NO4S",
+   "carbonAtoms": 12,
+   "similarityToPFOA": 0.333,
+   "similarityToPFOS": 0.4,
+   "mostSimilar": [
+    {
+     "name": "NMeFOSAA",
+     "similarity": 0.667
+    },
+    {
+     "name": "PFPeS",
+     "similarity": 0.4
+    },
+    {
+     "name": "PFOS",
+     "similarity": 0.4
+    }
+   ]
+  },
+  {
+   "name": "NMeFOSAA",
+   "fullName": "N-methyl perfluorooctanesulfonamidoacetic acid",
+   "family": "N-alkyl perfluorooctanesulfonamidoacetic acid",
+   "smiles": "CN(CC(=O)O)S(=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F",
+   "formula": "C11H6F17NO4S",
+   "carbonAtoms": 11,
+   "similarityToPFOA": 0.353,
+   "similarityToPFOS": 0.424,
+   "mostSimilar": [
+    {
+     "name": "NEtFOSAA",
+     "similarity": 0.667
+    },
+    {
+     "name": "PFPeS",
+     "similarity": 0.424
+    },
+    {
+     "name": "PFOS",
+     "similarity": 0.424
+    }
+   ]
+  },
+  {
+   "name": "HFPO-DA",
+   "fullName": "hexafluoropropylene oxide dimer acid (GenX chemical)",
+   "family": "Ether carboxylic acid",
+   "smiles": "OC(=O)C(F)(OC(F)(F)C(F)(F)C(F)(F)F)C(F)(F)F",
+   "formula": "C6HF11O3",
+   "carbonAtoms": 6,
+   "similarityToPFOA": 0.407,
+   "similarityToPFOS": 0.258,
+   "mostSimilar": [
+    {
+     "name": "PFMBA",
+     "similarity": 0.464
+    },
+    {
+     "name": "PFBA",
+     "similarity": 0.44
+    },
+    {
+     "name": "PFPeA",
+     "similarity": 0.423
+    }
+   ]
+  },
+  {
+   "name": "ADONA",
+   "fullName": "4,8-dioxa-3H-perfluorononanoic acid",
+   "family": "Ether carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)OC(F)(F)C(F)(F)C(F)(F)OC(F)(F)F",
+   "formula": "C7H2F12O4",
+   "carbonAtoms": 7,
+   "similarityToPFOA": 0.257,
+   "similarityToPFOS": 0.154,
+   "mostSimilar": [
+    {
+     "name": "PFMBA",
+     "similarity": 0.516
+    },
+    {
+     "name": "PFMPA",
+     "similarity": 0.452
+    },
+    {
+     "name": "NFDHA",
+     "similarity": 0.438
+    }
+   ]
+  },
+  {
+   "name": "PFMPA",
+   "fullName": "perfluoro-3-methoxypropanoic acid",
+   "family": "Ether carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)OC(F)(F)F",
+   "formula": "C4HF7O3",
+   "carbonAtoms": 4,
+   "similarityToPFOA": 0.4,
+   "similarityToPFOS": 0.161,
+   "mostSimilar": [
+    {
+     "name": "PFMBA",
+     "similarity": 0.727
+    },
+    {
+     "name": "NFDHA",
+     "similarity": 0.609
+    },
+    {
+     "name": "ADONA",
+     "similarity": 0.452
+    }
+   ]
+  },
+  {
+   "name": "PFMBA",
+   "fullName": "perfluoro-4-methoxybutanoic acid",
+   "family": "Ether carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)C(F)(F)C(F)(F)OC(F)(F)F",
+   "formula": "C5HF9O3",
+   "carbonAtoms": 5,
+   "similarityToPFOA": 0.48,
+   "similarityToPFOS": 0.188,
+   "mostSimilar": [
+    {
+     "name": "PFMPA",
+     "similarity": 0.727
+    },
+    {
+     "name": "NFDHA",
+     "similarity": 0.56
+    },
+    {
+     "name": "PFBA",
+     "similarity": 0.522
+    }
+   ]
+  },
+  {
+   "name": "NFDHA",
+   "fullName": "nonafluoro-3,6-dioxaheptanoic acid",
+   "family": "Ether carboxylic acid",
+   "smiles": "OC(=O)C(F)(F)OC(F)(F)C(F)(F)OC(F)(F)F",
+   "formula": "C5HF9O4",
+   "carbonAtoms": 5,
+   "similarityToPFOA": 0.286,
+   "similarityToPFOS": 0.156,
+   "mostSimilar": [
+    {
+     "name": "PFMPA",
+     "similarity": 0.609
+    },
+    {
+     "name": "PFMBA",
+     "similarity": 0.56
+    },
+    {
+     "name": "ADONA",
+     "similarity": 0.438
+    }
+   ]
+  },
+  {
+   "name": "PFEESA",
+   "fullName": "perfluoro(2-ethoxyethane)sulfonic acid",
+   "family": "Ether sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)OC(F)(F)C(F)(F)F",
+   "formula": "C4HF9O4S",
+   "carbonAtoms": 4,
+   "similarityToPFOA": 0.194,
+   "similarityToPFOS": 0.462,
+   "mostSimilar": [
+    {
+     "name": "9Cl-PF3ONS",
+     "similarity": 0.607
+    },
+    {
+     "name": "11Cl-PF3OUdS",
+     "similarity": 0.607
+    },
+    {
+     "name": "PFBS",
+     "similarity": 0.48
+    }
+   ]
+  },
+  {
+   "name": "9Cl-PF3ONS",
+   "fullName": "9-chlorohexadecafluoro-3-oxanonane-1-sulfonic acid",
+   "family": "Ether sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)OC(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)Cl",
+   "formula": "C8HClF16O4S",
+   "carbonAtoms": 8,
+   "similarityToPFOA": 0.2,
+   "similarityToPFOS": 0.433,
+   "mostSimilar": [
+    {
+     "name": "11Cl-PF3OUdS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFEESA",
+     "similarity": 0.607
+    },
+    {
+     "name": "PFPeS",
+     "similarity": 0.433
+    }
+   ]
+  },
+  {
+   "name": "11Cl-PF3OUdS",
+   "fullName": "11-chloroeicosafluoro-3-oxaundecane-1-sulfonic acid",
+   "family": "Ether sulfonic acid",
+   "smiles": "OS(=O)(=O)C(F)(F)C(F)(F)OC(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)C(F)(F)Cl",
+   "formula": "C10HClF20O4S",
+   "carbonAtoms": 10,
+   "similarityToPFOA": 0.2,
+   "similarityToPFOS": 0.433,
+   "mostSimilar": [
+    {
+     "name": "9Cl-PF3ONS",
+     "similarity": 1.0
+    },
+    {
+     "name": "PFEESA",
+     "similarity": 0.607
+    },
+    {
+     "name": "PFPeS",
+     "similarity": 0.433
+    }
+   ]
+  }
+ ]
+}
