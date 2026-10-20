@@ -183,3 +183,75 @@ footer {
     letter-spacing: -1.5px;
   }
 }
+.system-card h4 {
+  font-family: 'Manrope', sans-serif;
+  margin: 26px 0 8px;
+}
+
+.match-list {
+  margin: 16px 0;
+}
+
+.match {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: white;
+  color: #17332e;
+  border: 1px solid #cbd7cd;
+  padding: 14px 16px;
+  margin: 8px 0;
+}
+
+.match:hover,
+.match.active {
+  background: #eef4ee;
+}
+
+.match.active {
+  border-color: #1e5547;
+}
+
+.match span {
+  float: right;
+  color: #718078;
+  font-size: 13px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.chip {
+  background: #eef4ee;
+  border: 1px solid #dce4dc;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.callout {
+  background: #f1f5ef;
+  border-left: 3px solid #a7c3ad;
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  color: #586c65;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.well {
+  padding: 30px 0 50px;
+  border-top: 1px solid #dce4dc;
+  color: #586c65;
+  line-height: 1.8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
