@@ -1,0 +1,23 @@
+{
+  "asOf": "October 20, 2026",
+  "sourceUrl": "https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas",
+  "limits": {
+    "PFOA": { "mclPpt": 4 },
+    "PFOS": { "mclPpt": 4 },
+    "PFHxS": {
+      "mclPpt": 10,
+      "proposedForRemoval": true,
+      "note": "It was still listed in the rule when this page was last updated."
+    },
+    "PFNA": {
+      "mclPpt": 10,
+      "proposedForRemoval": true,
+      "note": "It was still listed in the rule when this page was last updated."
+    },
+    "HFPO-DA": {
+      "mclPpt": 10,
+      "proposedForRemoval": true,
+      "note": "It was still listed in the rule when this page was last updated."
+    }
+  }
+}
