@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
+import Findings from "./Findings.jsx";
 
 const DATA_URL = "/data/nc_pfas.json";
 const CLUSTER_URL = "/data/pfas_clusters.json";
@@ -21,6 +22,10 @@ const ELEMENT_STYLE = {
   Cl: { color: "#8a4fc9", label: "Chlorine" },
   H: { color: "#c9d1cd", label: "Hydrogen" },
 };
+
+function pptOf(microgramsPerLiter) {
+  return Number((microgramsPerLiter * 1000).toPrecision(3));
+}
 
 let molPromise = null;
 function loadMolecules() {
@@ -206,7 +211,7 @@ function CompoundCard({ info, badge, detected }) {
   );
 }
 
-function ChemistrySection({ system, units, clusters, disclaimer }) {
+function ChemistrySection({ system, clusters, disclaimer }) {
   const known = (item) => Boolean(clusters && clusters[item.contaminant]);
   const detected = system.detected.filter(known);
   const notDetected = system.notDetected.filter(known);
@@ -242,7 +247,7 @@ function ChemistrySection({ system, units, clusters, disclaimer }) {
               key={d.contaminant}
               info={clusters[d.contaminant]}
               detected
-              badge={`${d.maxValue} ${units}`}
+              badge={`${pptOf(d.maxValue)} ppt`}
             />
           ))}
         </div>
@@ -259,7 +264,7 @@ function ChemistrySection({ system, units, clusters, disclaimer }) {
                 key={n.contaminant}
                 info={clusters[n.contaminant]}
                 detected={false}
-                badge={`Not detected (< ${n.mrl} ${units})`}
+                badge={`Not detected (< ${pptOf(n.mrl)} ppt)`}
               />
             ))}
           </div>
@@ -295,7 +300,14 @@ function ChemistrySection({ system, units, clusters, disclaimer }) {
   );
 }
 
-function SystemDetail({ system, units, allContaminants, clusters, disclaimer }) {
+function SystemDetail({
+  system,
+  units,
+  allSystems,
+  allContaminants,
+  clusters,
+  disclaimer,
+}) {
   const reported = new Set([
     ...system.detected.map((d) => d.contaminant),
     ...system.notDetected.map((n) => n.contaminant),
@@ -314,31 +326,15 @@ function SystemDetail({ system, units, allContaminants, clusters, disclaimer }) 
         {formatDate(system.lastSample)}.
       </p>
 
-      <h4>Measured values</h4>
-      {system.detected.length === 0 ? (
-        <p>
-          No PFAS were detected at or above the reporting level in this
-          system&rsquo;s UCMR 5 results.
-        </p>
-      ) : (
-        system.detected.map((item) => (
-          <div className="result-row" key={item.contaminant}>
-            <strong>{item.contaminant}</strong>
-            <span>
-              {item.maxValue} {units}
-            </span>
-            <p>
-              Highest measured result, collected {formatDate(item.maxDate)}.
-              Detected in {item.detections} of {item.samples} sample results.
-              Reporting level: {item.mrl} {units}.
-            </p>
-          </div>
-        ))
-      )}
+      <Findings
+        system={system}
+        units={units}
+        allSystems={allSystems}
+        clusters={clusters}
+      />
 
       <ChemistrySection
         system={system}
-        units={units}
         clusters={clusters}
         disclaimer={disclaimer}
       />
@@ -352,7 +348,7 @@ function SystemDetail({ system, units, allContaminants, clusters, disclaimer }) 
       <div className="chips">
         {system.notDetected.map((n) => (
           <span className="chip" key={n.contaminant}>
-            {n.contaminant} (&lt; {n.mrl} {units})
+            {n.contaminant} (&lt; {pptOf(n.mrl)} ppt)
           </span>
         ))}
       </div>
@@ -507,6 +503,7 @@ function App() {
               key={selected.id}
               system={selected}
               units={data.units}
+              allSystems={data.systems}
               allContaminants={allContaminants}
               clusters={clusters}
               disclaimer={clusterData ? clusterData.disclaimer : ""}
