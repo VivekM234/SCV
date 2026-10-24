@@ -380,6 +380,16 @@ function App() {
   const [submitted, setSubmitted] = useState("");
   const [matches, setMatches] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const resultsRef = useRef(null);
+
+  useEffect(() => {
+    if (matches === null || !resultsRef.current) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    resultsRef.current.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "start",
+    });
+  }, [matches]);
 
   useEffect(() => {
     fetch(DATA_URL)
@@ -435,139 +445,224 @@ function App() {
   const selected = matches ? matches.find((s) => s.id === selectedId) : null;
 
   return (
-    <main className="page">
-      <nav className="nav">
-        <a className="brand" href="#home">PFAS / DECODER</a>
-        <a href="#about">About this project</a>
-      </nav>
-
-      <section className="hero" id="home">
-        <p className="eyebrow">NORTH CAROLINA · DRINKING WATER</p>
-        <h1>Your water report,<br />in plain English.</h1>
-        <p className="intro">
-          Explore public drinking-water monitoring results, learn about
-          PFAS chemistry, and find reliable sources for your next steps.
-        </p>
-
-        <form className="search" onSubmit={findSystem}>
-          <input
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Enter a ZIP code or water system"
-            aria-label="ZIP code or water system"
-            required
-          />
-          <button type="submit" disabled={!data}>Search</button>
-        </form>
-
-        <p className="note">
-          {loadError
-            ? "The data file could not be loaded. Check that public/data/nc_pfas.json exists."
-            : data
-            ? `Data: ${data.source}. ${data.systemCount} North Carolina water systems.`
-            : "Loading data…"}
-        </p>
-      </section>
-
-      {matches !== null && (
-        <section className="results">
-          <h2>Search results</h2>
-
-          {matches.length === 0 && (
-            <div className="callout">
-              No UCMR 5 results found for &ldquo;{submitted}&rdquo;. That does
-              not mean the water is untested or safe. UCMR 5 did not monitor
-              every public water system, a ZIP code can be served by systems not
-              listed here, and private wells are not covered.
+    <>
+      <header className="masthead" id="home">
+        <div className="wrap">
+          <nav className="nav" aria-label="Main">
+            <a className="brand" href="#home">
+              <svg className="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.5C12 2.5 5 10.2 5 15a7 7 0 0 0 14 0c0-4.8-7-12.5-7-12.5z" />
+              </svg>
+              PFAS Decoder
+            </a>
+            <div className="nav-links">
+              <a href="#about">How it works</a>
+              <a href="#wells">Private wells</a>
             </div>
-          )}
+          </nav>
 
-          {matches.length > 1 && (
-            <div className="match-list">
-              <p>{matches.length} water systems match. Select one:</p>
-              {matches.map((s) => (
-                <button
-                  type="button"
-                  key={s.id}
-                  className={s.id === selectedId ? "match active" : "match"}
-                  onClick={() => setSelectedId(s.id)}
-                >
-                  {displayName(s.name)} <span>{s.id}</span>
-                </button>
-              ))}
+          <div className="hero">
+            <div className="hero-copy">
+              <h1>Your water report, in plain English.</h1>
+              <p className="intro">
+                Explore public drinking-water monitoring results for North
+                Carolina, learn about PFAS chemistry, and find reliable sources
+                for your next steps.
+              </p>
+
+              <form className="search" onSubmit={findSystem}>
+                <input
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="ZIP code or water system"
+                  aria-label="ZIP code or water system"
+                  required
+                />
+                <button type="submit" disabled={!data}>Search</button>
+              </form>
+
+              <p className="note">
+                {loadError
+                  ? "The data file could not be loaded. Check that public/data/nc_pfas.json exists."
+                  : data
+                  ? `Data: ${data.source}.`
+                  : "Loading data…"}
+              </p>
             </div>
-          )}
 
-          {selected && (
-            <SystemDetail
-              key={selected.id}
-              system={selected}
-              units={data.units}
-              allSystems={data.systems}
-              allContaminants={allContaminants}
-              clusters={clusters}
-              disclaimer={clusterData ? clusterData.disclaimer : ""}
-            />
-          )}
+            <figure className="scale">
+              <svg
+                viewBox="0 0 400 400"
+                role="img"
+                aria-label="Ripples spreading from a single drop of water"
+              >
+                <circle className="ring" cx="200" cy="200" r="190" />
+                <circle className="ring" cx="200" cy="200" r="190" />
+                <circle className="ring" cx="200" cy="200" r="190" />
+                <circle className="ring" cx="200" cy="200" r="190" />
+                <circle className="ring" cx="200" cy="200" r="190" />
+                <circle className="drop-glow" cx="200" cy="205" r="62" />
+                <path
+                  className="drop"
+                  d="M200 148C200 148 164 190 164 217a36 36 0 0 0 72 0c0-27-36-69-36-69z"
+                />
+                <path
+                  className="drop-shine"
+                  d="M182 214c0 9 4 17 11 21-6-9-7-20-4-31-4 3-7 6-7 10z"
+                />
+              </svg>
+              <figcaption>
+                <strong>One part per trillion</strong> is about one drop of
+                water in 20 Olympic-size swimming pools.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </header>
 
-          {matches.length > 0 && (
-            <div className="callout">
-              This page shows what was measured. It does not say whether water
-              is safe to drink.
+      <main>
+        {data && (
+          <div className="wrap facts">
+            <div>
+              <strong>{data.systemCount.toLocaleString("en-US")}</strong>
+              <span>North Carolina water systems in the data</span>
             </div>
-          )}
+            <div>
+              <strong>{allContaminants.length}</strong>
+              <span>different PFAS tested for</span>
+            </div>
+          </div>
+        )}
+
+        {matches !== null && (
+          <section className="results" ref={resultsRef}>
+            <div className="wrap">
+              <h2>Search results</h2>
+
+              {matches.length === 0 && (
+                <div className="callout">
+                  No UCMR 5 results found for &ldquo;{submitted}&rdquo;. That
+                  does not mean the water is untested or safe. UCMR 5 did not
+                  monitor every public water system, a ZIP code can be served
+                  by systems not listed here, and private wells are not
+                  covered.
+                </div>
+              )}
+
+              {matches.length > 1 && (
+                <div className="match-list">
+                  <p>{matches.length} water systems match. Select one:</p>
+                  {matches.map((s) => (
+                    <button
+                      type="button"
+                      key={s.id}
+                      className={s.id === selectedId ? "match active" : "match"}
+                      onClick={() => setSelectedId(s.id)}
+                    >
+                      {displayName(s.name)} <span>{s.id}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {selected && (
+                <SystemDetail
+                  key={selected.id}
+                  system={selected}
+                  units={data.units}
+                  allSystems={data.systems}
+                  allContaminants={allContaminants}
+                  clusters={clusters}
+                  disclaimer={clusterData ? clusterData.disclaimer : ""}
+                />
+              )}
+
+              {matches.length > 0 && (
+                <div className="callout">
+                  This page shows what was measured. It does not say whether
+                  water is safe to drink.
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        <section className="how" id="about">
+          <div className="wrap">
+            <h2>What this site helps you do</h2>
+            <div className="features">
+              <article>
+                <span className="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 3h7l4 4v14H7z" />
+                    <path d="M14 3v4h4M10 12h5M10 16h5" />
+                  </svg>
+                </span>
+                <h3>Read the results</h3>
+                <p>
+                  Learn what a reported concentration means, how it was
+                  measured, and what the monitoring data cannot establish.
+                </p>
+              </article>
+
+              <article>
+                <span className="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="6" cy="7" r="2.5" />
+                    <circle cx="18" cy="7" r="2.5" />
+                    <circle cx="12" cy="18" r="2.5" />
+                    <path d="M8.3 8.2l2.3 7.3M15.7 8.2l-2.3 7.3M8.5 7h7" />
+                  </svg>
+                </span>
+                <h3>Explore the chemistry</h3>
+                <p>
+                  Compare molecular structures using RDKit fingerprints.
+                  Structural similarity does not prove equal toxicity.
+                </p>
+              </article>
+
+              <article>
+                <span className="icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5h16v11H9l-5 4z" />
+                    <path d="M10 9.5a2 2 0 1 1 3 1.7c-.7.4-1 .8-1 1.5M12 14.8v.2" />
+                  </svg>
+                </span>
+                <h3>Ask better questions</h3>
+                <p>
+                  Find official sources and questions to ask your water
+                  provider. Private wells require a separate testing pathway.
+                </p>
+              </article>
+            </div>
+          </div>
         </section>
-      )}
 
-      <section className="features" id="about">
-        <article>
-          <span className="number">01 / UNDERSTAND</span>
-          <h2>Read the results</h2>
-          <p>
-            Learn what a reported concentration means, how it was measured,
-            and what the monitoring data cannot establish.
-          </p>
-        </article>
-
-        <article>
-          <span className="number">02 / EXPLORE</span>
-          <h2>Explore the chemistry</h2>
-          <p>
-            Compare molecular structures using RDKit fingerprints.
-            Structural similarity does not prove equal toxicity.
-          </p>
-        </article>
-
-        <article>
-          <span className="number">03 / TAKE ACTION</span>
-          <h2>Ask better questions</h2>
-          <p>
-            Find official sources and questions to ask your water provider.
-            Private wells require a separate testing pathway.
-          </p>
-        </article>
-      </section>
-
-      <section className="well" id="wells">
-        <h2>Private wells</h2>
-        <p>
-          UCMR 5 tested public water systems. It did not test private wells, so
-          nothing on this page describes a private well. Well owners can have
-          their water tested by a state-certified laboratory, and a county
-          health department can usually point you to one.
-        </p>
-      </section>
+        <section className="well" id="wells">
+          <div className="wrap well-grid">
+            <h2>Private wells</h2>
+            <p>
+              UCMR 5 tested public water systems. It did not test private wells,
+              so nothing on this page describes a private well. Well owners can
+              have their water tested by a state-certified laboratory, and a
+              county health department can usually point you to one.
+            </p>
+          </div>
+        </section>
+      </main>
 
       <footer>
-        <p>
-          Data source: U.S. EPA UCMR 5. This site is not a safety
-          determination or medical advice.
-        </p>
-        <a href={EPA_OCCURRENCE} target="_blank" rel="noreferrer">
-          Visit the official EPA source ↗
-        </a>
+        <div className="wrap">
+          <p>
+            Data source: U.S. EPA UCMR 5. This site is not a safety
+            determination or medical advice.
+          </p>
+          <a href={EPA_OCCURRENCE} target="_blank" rel="noreferrer">
+            Visit the official EPA source ↗
+          </a>
+        </div>
       </footer>
-    </main>
+    </>
   );
 }
 

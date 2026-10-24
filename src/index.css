@@ -10,3 +10,13 @@ body,
   display: block;
   text-align: left;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
