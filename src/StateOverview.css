@@ -1,0 +1,290 @@
+/* Statewide overview + chemical notes. Imported by StateOverview.jsx,
+   so nothing needs to be pasted into App.css. */
+
+.overview {
+  padding: 40px 0 30px;
+  border-top: 1px solid #dce4dc;
+}
+
+.overview h2 {
+  font-size: 32px;
+  margin: 8px 0 12px;
+}
+
+.overview h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  margin: 36px 0 10px;
+}
+
+.ov-lede {
+  max-width: 760px;
+  color: #586c65;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.ov-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 22px 0 8px;
+}
+
+.ov-tile {
+  background: white;
+  border: 1px solid #dce4dc;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.ov-tile strong {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 36px;
+  line-height: 1.1;
+  color: #17332e;
+}
+
+.ov-tile span {
+  font-size: 13px;
+  color: #586c65;
+}
+
+.ov-card {
+  background: white;
+  border: 1px solid #dce4dc;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 10px 0;
+}
+
+/* bar chart */
+.ov-chart {
+  margin: 14px 0 6px;
+}
+
+.ov-bar-row {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.ov-bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.ov-bar-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ov-bar-fill {
+  height: 18px;
+  min-width: 3px;
+  background: #a7c3ad;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ov-bar-over {
+  height: 100%;
+  background: #e08a1e;
+}
+
+.ov-bar-value {
+  font-size: 12px;
+  color: #586c65;
+  white-space: nowrap;
+}
+
+.ov-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 12px;
+  color: #586c65;
+}
+
+.ov-sw {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+
+.ov-sw.found {
+  background: #a7c3ad;
+}
+
+.ov-sw.over {
+  background: #e08a1e;
+}
+
+/* chemical reference cards */
+.ov-refs {
+  display: grid;
+  gap: 10px;
+}
+
+.ov-ref {
+  background: white;
+  border: 1px solid #dce4dc;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.ov-ref summary {
+  cursor: pointer;
+  line-height: 1.6;
+}
+
+.ov-ref-name {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.ov-ref-line {
+  display: block;
+  font-size: 13px;
+  color: #586c65;
+}
+
+.ov-ref-body p {
+  line-height: 1.7;
+  margin: 4px 0 8px;
+}
+
+.ov-flag {
+  color: #8a4b00;
+  font-weight: 600;
+}
+
+.chem-label {
+  margin: 14px 0 2px !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #437c67;
+}
+
+.chem-more {
+  margin-top: 10px;
+  border-top: 1px solid #e4e9e3;
+  padding-top: 10px;
+}
+
+.chem-more summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #1e5547;
+}
+
+.chem-more p {
+  line-height: 1.7;
+  margin: 4px 0;
+}
+
+/* tables */
+.ov-search {
+  width: min(100%, 320px);
+  border: 1px solid #cbd7cd;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.ov-table-wrap {
+  max-height: 520px;
+  overflow: auto;
+}
+
+.ov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ov-table th,
+.ov-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #e4e9e3;
+  text-align: right;
+  vertical-align: top;
+}
+
+.ov-table .text {
+  text-align: left;
+}
+
+.ov-table th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.ov-table th button {
+  background: none;
+  color: #586c65;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.ov-table th button:hover {
+  background: none;
+  color: #17332e;
+}
+
+.ov-table td.over {
+  color: #b35f00;
+  font-weight: 700;
+}
+
+.ov-table td.nd {
+  color: #9aa8a2;
+}
+
+.ov-nd td {
+  line-height: 1.6;
+}
+
+button.ov-link {
+  background: none;
+  color: #1e5547;
+  padding: 0;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+button.ov-link:hover {
+  background: none;
+  color: #143d33;
+}
+
+@media (max-width: 650px) {
+  .overview h2 {
+    font-size: 26px;
+  }
+
+  .ov-bar-row {
+    grid-template-columns: 64px 1fr;
+  }
+}

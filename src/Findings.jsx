@@ -1,22 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-
-const LIMITS_URL = "/data/epa_limits.json";
-
-let limitsPromise = null;
-function loadLimits() {
-  if (!limitsPromise) {
-    limitsPromise = fetch(LIMITS_URL)
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .catch((error) => {
-        limitsPromise = null;
-        throw error;
-      });
-  }
-  return limitsPromise;
-}
+import { useMemo } from "react";
 
 function toPpt(microgramsPerLiter) {
   return Number((microgramsPerLiter * 1000).toPrecision(3));
@@ -161,7 +143,7 @@ function Explainer({ asOf, sourceUrl }) {
   );
 }
 
-function ChemicalCard({ row, stat, units, fullName }) {
+function ChemicalCard({ row, stat, fullName, info }) {
   const { item, limit, level, ppt } = row;
 
   let fill = 0;
@@ -211,9 +193,7 @@ function ChemicalCard({ row, stat, units, fullName }) {
 
       <p className="finding-number">
         {ppt} <span>ppt</span>
-        <em>
-          ({item.maxValue} {units})
-        </em>
+        <em>({item.maxValue} µg/L)</em>
       </p>
 
       <div
@@ -245,28 +225,32 @@ function ChemicalCard({ row, stat, units, fullName }) {
         Found in {item.detections} of {item.samples} samples from this system.
         {ncLine}
       </p>
+
+      {info && (
+        <details className="chem-more">
+          <summary>
+            Where {item.contaminant} comes from and what it can do to health
+          </summary>
+          <p className="chem-label">How it gets into NC water</p>
+          <p>{info.source}</p>
+          <p className="chem-label">Allowed level</p>
+          <p>{info.limit}</p>
+          <p className="chem-label">Health concerns</p>
+          <p>{info.health}</p>
+        </details>
+      )}
     </div>
   );
 }
 
-export default function Findings({ system, units, allSystems, clusters }) {
-  const [limitData, setLimitData] = useState(null);
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    loadLimits()
-      .then((data) => {
-        if (!cancelled) setLimitData(data);
-      })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+export default function Findings({
+  system,
+  allSystems,
+  clusters,
+  limitData,
+  limitsFailed,
+  chemInfo,
+}) {
   const stats = useMemo(() => {
     const result = {};
     const entry = (name) =>
@@ -285,7 +269,7 @@ export default function Findings({ system, units, allSystems, clusters }) {
     return result;
   }, [allSystems]);
 
-  if (!limitData && !failed) {
+  if (!limitData && !limitsFailed) {
     return <p className="note">Loading EPA reference levels…</p>;
   }
 
@@ -309,14 +293,16 @@ export default function Findings({ system, units, allSystems, clusters }) {
           <h4>Chemicals found in this system</h4>
           <p className="note">
             Green means below an EPA limit, orange means at or above one, and
-            gray means EPA has no limit for that chemical.
+            gray means EPA has no limit for that chemical. Open a card&rsquo;s
+            details to see where the chemical comes from and its health
+            concerns.
           </p>
           {rows.map((row) => (
             <ChemicalCard
               key={row.item.contaminant}
               row={row}
               stat={stats[row.item.contaminant]}
-              units={units}
+              info={chemInfo ? chemInfo[row.item.contaminant] : null}
               fullName={
                 clusters && clusters[row.item.contaminant]
                   ? clusters[row.item.contaminant].fullName
@@ -327,7 +313,7 @@ export default function Findings({ system, units, allSystems, clusters }) {
         </>
       )}
 
-      {failed && (
+      {limitsFailed && (
         <p className="note">
           The file public/data/epa_limits.json could not be loaded.
         </p>

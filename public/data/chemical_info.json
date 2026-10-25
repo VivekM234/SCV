@@ -1,0 +1,150 @@
+{
+  "asOf": "October 2026",
+  "chemicals": {
+    "PFOS": {
+      "source": "The most widespread PFAS in NC tap water and a classic marker of older firefighting foam and older 3M-chemistry products. NC hot spots in this data: Nashville's Well #5 (Nash County, ZIPs 27816/27856; 490 ppt in Sept 2024 and 200 ppt in March 2025, the state's highest; no public source identified); groundwater systems around Fayetteville and Fort Bragg (Brookwood and Cliffdale West in 28304/28306/28314, Bragg Communities, Old North Utilities), where PFOS shows up with PFHxS and PFBS but no GenX, a pattern that matches firefighting foam rather than Chemours; and Greensboro. It is also common in rivers below wastewater plants that take industrial waste.",
+      "limit": "Enforceable federal limit of 4 ppt, with compliance due in 2029 (EPA has proposed allowing extensions to 2031). EPA's health goal is zero, because it found no level without some risk. The 4 ppt limit was set at the lowest level labs can reliably measure, not at a 'safe' level.",
+      "health": "Linked to weaker vaccine responses, higher cholesterol, liver damage, lower birth weight and thyroid effects. EPA considers it a likely cause of cancer (liver tumors in animals). It stays in the body for years."
+    },
+    "PFOA": {
+      "source": "Comes from making fluoropolymer plastics (DuPont/Chemours historically), stain-resistant textile and carpet treatments, landfills, sewage sludge spread on fields, and firefighting foam. Highest NC results: Robeson County's Rocco water plant (groundwater, 30 ppt), where it occurs with GenX and other Chemours-related PFAS; the Fayetteville/Fort Bragg groundwater systems; Iredell Water Corporation; and Burlington, where textile-plant discharges have been named as a contributor.",
+      "limit": "Enforceable federal limit of 4 ppt, with compliance due in 2029 (EPA has proposed allowing extensions to 2031). EPA's health goal is zero. The 4 ppt limit is the lowest level labs can reliably measure, not a 'safe' level.",
+      "health": "Linked to kidney and testicular cancer (the World Health Organization's cancer agency classifies PFOA as a known human carcinogen), higher cholesterol, weaker vaccine responses, liver changes, high blood pressure during pregnancy and lower birth weight. It stays in the body for years (half-life about 2 to 4 years)."
+    },
+    "PFHxS": {
+      "source": "A marker of firefighting foam, often found with PFOS. Highest in NC: one well in Aqua's Bayleaf system in North Raleigh (Georges Grant #1, ZIP 27614; 152.6 ppt in Dec 2024 and 127.7 ppt in May 2025, the state's highest; no public source identified. Aqua announced PFAS treatment for Bayleaf in Jan 2025, but this well still tested high afterward), plus Nashville, the Fayetteville-area groundwater systems, Selma and Greensboro.",
+      "limit": "Federal limit of 10 ppt under the 2024 rule, and part of the combined 'hazard index' for PFAS mixtures. In May 2026 EPA proposed removing this limit; that was not final as of October 2026. EPA's own 2025 toxicity assessment found PFHxS more harmful than the 10 ppt figure assumes.",
+      "health": "Disrupts thyroid hormones, weakens vaccine responses in children and affects the liver. It stays in the human body longer than almost any other PFAS (roughly 5 to 8 years)."
+    },
+    "PFNA": {
+      "source": "Not found in any NC system tested. It was historically used in making PVDF plastics, a type of fluoropolymer.",
+      "limit": "Federal limit of 10 ppt and part of the hazard index under the 2024 rule. EPA proposed removing it in May 2026; not final as of October 2026.",
+      "health": "Linked to lower birth weight and to liver and immune effects."
+    },
+    "HFPO-DA": {
+      "source": "Better known as GenX. It is made at Chemours' Fayetteville Works plant on the Bladen-Cumberland county line. It got into water two ways: wastewater discharged into the Cape Fear River (affecting systems downstream) and decades of smokestack emissions that settled onto soil and soaked into groundwater for miles around. In this data it shows up only in that area: Robeson County's Rocco plant (groundwater, about 34 ppt), East Bladen (13.6 ppt), and lower Cape Fear systems in Brunswick County and the Wilmington area (5 to 8 ppt). Wilmington's main utility (CFPUA) had none at the tap, consistent with its carbon filters.",
+      "limit": "Federal limit of 10 ppt and part of the hazard index under the 2024 rule. EPA proposed removing the limit in May 2026; not final as of October 2026.",
+      "health": "In animal studies: liver damage (the most sensitive effect), plus kidney, immune, blood, reproductive and developmental effects, and some tumors at high doses. It leaves the body much faster than PFOA, but EPA judged it more toxic per dose."
+    },
+    "PFBS": {
+      "source": "A replacement for PFOS in 3M products and an ingredient in firefighting foams. Highest in the Fayetteville-area groundwater systems (Brookwood, 63 ppt), Bayleaf, Aberdeen and Bragg Communities.",
+      "limit": "No limit of its own. It counts toward the 2024 'hazard index' for mixtures using a health-based value of 2,000 ppt, and the hazard index was proposed for removal in May 2026.",
+      "health": "Thyroid, kidney and developmental effects in animals. It is much less potent than PFOS and leaves the body in about a month."
+    },
+    "PFBA": {
+      "source": "A short-chain breakdown product from foams, textile treatments and landfills. Highest at Bayleaf, Sanford, Johnston County and Dunn, all well under any health-based value.",
+      "limit": "No federal limit. For comparison, Minnesota's health-based guidance value is 7,000 ppt.",
+      "health": "Thyroid hormone changes, liver enlargement and delayed development in animals. Low potency, and it clears from the body within days."
+    },
+    "PFHxA": {
+      "source": "The main breakdown product of the newer 'C6' chemistry used in stain- and water-repellent fabrics and newer foams. Highest at Bayleaf, Iredell Water, Robeson County, Bessemer City, Dunn and Sanford.",
+      "limit": "No federal limit. For comparison, Minnesota's health-based guidance value is 200 ppt.",
+      "health": "Lower offspring body weight and liver and blood effects in animals. It clears from the body in about a month."
+    },
+    "PFPeA": {
+      "source": "A breakdown product of fluorotelomer chemicals from textiles, newer foams and landfill runoff. Highest at Iredell Water Corporation (60.6 ppt), Bayleaf, Robeson County and along the Cape Fear (Sanford, Dunn, Fayetteville).",
+      "limit": "No federal limit.",
+      "health": "Very little health data. Because it forms when other PFAS break down, finding it often means other PFAS are nearby."
+    },
+    "PFHpA": {
+      "source": "A byproduct of fluoropolymer and foam manufacturing, and one of the compounds Chemours must control under its NC consent order. Highest at Robeson County, Bayleaf and Iredell.",
+      "limit": "No federal limit.",
+      "health": "Limited data; liver effects in animals. It usually appears alongside PFOA."
+    },
+    "6:2 FTS": {
+      "source": "The main ingredient of modern firefighting foams, also used to control mist in chrome plating. Found in 9 NC systems, mostly ones drawing from rivers (Greensboro, Burlington, Fayetteville, Mocksville), plus Selma's groundwater.",
+      "limit": "No federal limit.",
+      "health": "Limited data; liver and kidney effects in animals. In the environment it breaks down into PFHxA and PFPeA."
+    },
+    "PFPeS": {
+      "source": "A marker of older firefighting foam made by 3M's original process. Found only at Bayleaf and Robeson County.",
+      "limit": "No federal limit.",
+      "health": "Very little health data. Its structure falls between PFBS and PFHxS."
+    },
+    "PFHpS": {
+      "source": "A marker of older firefighting foam. Found only in Nashville, alongside its high PFOS.",
+      "limit": "No federal limit.",
+      "health": "Very little health data. Its structure is similar to PFOS and PFHxS."
+    },
+    "PFDA": {
+      "source": "Not found in any NC system tested. A long-chain PFAS (10 carbons) that comes from older stain- and grease-repellent coatings. Long chains like this cling to soil and sediment and build up in fish, so they reach tap water less often.",
+      "limit": "No federal limit. EPA's 2024 toxicity assessment found it harmful at very low doses.",
+      "health": "Linked to weaker vaccine responses, lower birth weight and liver effects."
+    },
+    "PFUnA": {
+      "source": "Not found in any NC system tested. A long-chain PFAS (11 carbons) from older fluoropolymer and stain-repellent chemistry. It clings to soil and sediment and builds up in fish rather than reaching tap water.",
+      "limit": "No federal limit.",
+      "health": "Little human data; liver and developmental effects in animal studies."
+    },
+    "PFDoA": {
+      "source": "Not found in any NC system tested. A long-chain PFAS (12 carbons) from older fluoropolymer and stain-repellent chemistry. It clings to soil and sediment rather than reaching tap water.",
+      "limit": "No federal limit.",
+      "health": "Little human data; liver and reproductive effects in animal studies."
+    },
+    "PFTrDA": {
+      "source": "Not found in any NC system tested. A very long-chain PFAS (13 carbons) from older fluoropolymer chemistry. It clings to soil and sediment rather than reaching tap water.",
+      "limit": "No federal limit.",
+      "health": "Very little health data."
+    },
+    "PFTA": {
+      "source": "Not found in any NC system tested. A very long-chain PFAS (14 carbons) from older fluoropolymer chemistry. It clings to soil and sediment rather than reaching tap water.",
+      "limit": "No federal limit.",
+      "health": "Very little health data; liver effects in animal studies."
+    },
+    "4:2 FTS": {
+      "source": "Not found in any NC system tested. A short-chain fluorotelomer used in some newer firefighting foams as a replacement for older chemicals. It moves easily in water, so not finding it suggests it isn't being released near these water sources.",
+      "limit": "No federal limit.",
+      "health": "Very little health data. In the environment it can break down into short-chain acids such as PFPeA."
+    },
+    "8:2 FTS": {
+      "source": "Not found in any NC system tested. A longer fluorotelomer from older firefighting foams and surface treatments. It tends to bind to soil and sediment, and over time it can break down into PFOA.",
+      "limit": "No federal limit.",
+      "health": "Very little health data on its own; its concern is mainly that it can turn into PFOA."
+    },
+    "NEtFOSAA": {
+      "source": "Not found in any NC system tested. A breakdown product of old 3M paper and fabric coatings (Scotchgard-type chemistry, phased out in the early 2000s). It is found mostly in sewage sludge and sediment, and it can break down further into PFOS.",
+      "limit": "No federal limit.",
+      "health": "Very little health data on its own; its concern is mainly that it can turn into PFOS."
+    },
+    "NMeFOSAA": {
+      "source": "Not found in any NC system tested. A breakdown product of old 3M paper and fabric coatings (phased out in the early 2000s). It is found mostly in sewage sludge and sediment, and it can break down further into PFOS.",
+      "limit": "No federal limit.",
+      "health": "Very little health data on its own; its concern is mainly that it can turn into PFOS."
+    },
+    "PFMPA": {
+      "source": "Not found in NC tap water. It is a byproduct of Chemours' Fayetteville Works and has been found in Cape Fear River water and in private wells near the plant, but not in treated water from the systems tested here.",
+      "limit": "No federal limit.",
+      "health": "Very little health data."
+    },
+    "PFMBA": {
+      "source": "Not found in NC tap water. Also a byproduct of Chemours' Fayetteville Works, found in the Cape Fear River and in wells near the plant.",
+      "limit": "No federal limit.",
+      "health": "Very little health data."
+    },
+    "NFDHA": {
+      "source": "Not found in NC tap water. A newer 'fluoroether' PFAS from fluoropolymer manufacturing.",
+      "limit": "No federal limit.",
+      "health": "Very little health data."
+    },
+    "PFEESA": {
+      "source": "Not found in NC tap water. A fluoroether PFAS linked to fluoropolymer and membrane manufacturing.",
+      "limit": "No federal limit.",
+      "health": "Very little health data."
+    },
+    "ADONA": {
+      "source": "Not found in NC tap water. A PFOA replacement made by 3M/Dyneon, used mainly in Europe.",
+      "limit": "No federal limit.",
+      "health": "Very little health data; liver effects in animal studies."
+    },
+    "9Cl-PF3ONS": {
+      "source": "Not found in NC tap water. The main ingredient of F-53B, a chrome-plating mist suppressant used mainly in China.",
+      "limit": "No federal limit.",
+      "health": "Very little health data; structurally similar to PFOS."
+    },
+    "11Cl-PF3OUdS": {
+      "source": "Not found in NC tap water. A minor ingredient of F-53B, a chrome-plating mist suppressant used mainly in China.",
+      "limit": "No federal limit.",
+      "health": "Very little health data."
+    }
+  }
+}

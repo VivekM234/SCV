@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 import Findings from "./Findings.jsx";
+import StateOverview from "./StateOverview.jsx";
 
 const DATA_URL = "/data/nc_pfas.json";
 const CLUSTER_URL = "/data/pfas_clusters.json";
 const MOL_URL = "/data/pfas_3d.json";
+const LIMITS_URL = "/data/epa_limits.json";
+const INFO_URL = "/data/chemical_info.json";
 const EPA_DATA_FINDER =
   "https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder";
 const EPA_OCCURRENCE =
@@ -23,6 +26,13 @@ const ELEMENT_STYLE = {
   H: { color: "#c9d1cd", label: "Hydrogen" },
 };
 
+function getJson(url) {
+  return fetch(url).then((response) => {
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    return response.json();
+  });
+}
+
 function pptOf(microgramsPerLiter) {
   return Number((microgramsPerLiter * 1000).toPrecision(3));
 }
@@ -30,15 +40,10 @@ function pptOf(microgramsPerLiter) {
 let molPromise = null;
 function loadMolecules() {
   if (!molPromise) {
-    molPromise = fetch(MOL_URL)
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .catch((error) => {
-        molPromise = null;
-        throw error;
-      });
+    molPromise = getJson(MOL_URL).catch((error) => {
+      molPromise = null;
+      throw error;
+    });
   }
   return molPromise;
 }
@@ -84,8 +89,13 @@ function formatDate(iso) {
   });
 }
 
-function structureUrl(name) {
-  return "/structures/" + name.replace(/[^A-Za-z0-9]+/g, "_") + ".svg";
+// The structure drawings may be saved as "42FTS.svg" or "4_2_FTS.svg",
+// depending on which version of draw_structures.py made them, so try both.
+function structureUrls(name) {
+  return [
+    "/structures/" + name.replace(/[^A-Za-z0-9]+/g, "") + ".svg",
+    "/structures/" + name.replace(/[^A-Za-z0-9]+/g, "_") + ".svg",
+  ];
 }
 
 function Molecule3D({ info }) {
@@ -188,14 +198,21 @@ function Molecule3D({ info }) {
 }
 
 function CompoundCard({ info, badge, detected }) {
+  const [first, second] = structureUrls(info.name);
   return (
     <div className="compound-card">
       <img
-        src={structureUrl(info.name)}
+        src={first}
         alt={`Structure of ${info.fullName}`}
         loading="lazy"
         onError={(event) => {
-          event.currentTarget.style.display = "none";
+          const img = event.currentTarget;
+          if (!img.dataset.retried) {
+            img.dataset.retried = "1";
+            img.src = second;
+          } else {
+            img.style.display = "none";
+          }
         }}
       />
       <strong>{info.name}</strong>
@@ -302,11 +319,13 @@ function ChemistrySection({ system, clusters, disclaimer }) {
 
 function SystemDetail({
   system,
-  units,
   allSystems,
   allContaminants,
   clusters,
   disclaimer,
+  limitData,
+  limitsFailed,
+  chemInfo,
 }) {
   const reported = new Set([
     ...system.detected.map((d) => d.contaminant),
@@ -328,9 +347,11 @@ function SystemDetail({
 
       <Findings
         system={system}
-        units={units}
         allSystems={allSystems}
         clusters={clusters}
+        limitData={limitData}
+        limitsFailed={limitsFailed}
+        chemInfo={chemInfo}
       />
 
       <ChemistrySection
@@ -375,34 +396,45 @@ function SystemDetail({
 function App() {
   const [data, setData] = useState(null);
   const [clusterData, setClusterData] = useState(null);
+  const [limitData, setLimitData] = useState(null);
+  const [limitsFailed, setLimitsFailed] = useState(false);
+  const [chemInfoData, setChemInfoData] = useState(null);
   const [loadError, setLoadError] = useState(false);
   const [search, setSearch] = useState("");
   const [submitted, setSubmitted] = useState("");
   const [matches, setMatches] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const resultsRef = useRef(null);
+  const scrollPending = useRef(false);
 
   useEffect(() => {
-    fetch(DATA_URL)
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
+    getJson(DATA_URL)
       .then(setData)
       .catch(() => setLoadError(true));
-
-    fetch(CLUSTER_URL)
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
+    getJson(CLUSTER_URL)
       .then(setClusterData)
       .catch(() => setClusterData(null));
+    getJson(LIMITS_URL)
+      .then(setLimitData)
+      .catch(() => setLimitsFailed(true));
+    getJson(INFO_URL)
+      .then(setChemInfoData)
+      .catch(() => setChemInfoData(null));
   }, []);
+
+  useEffect(() => {
+    if (scrollPending.current && resultsRef.current) {
+      scrollPending.current = false;
+      resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [selectedId, matches]);
 
   const clusters = useMemo(() => {
     if (!clusterData) return null;
     return Object.fromEntries(clusterData.compounds.map((c) => [c.name, c]));
   }, [clusterData]);
+
+  const chemInfo = chemInfoData ? chemInfoData.chemicals : null;
 
   const allContaminants = useMemo(() => {
     if (!data) return [];
@@ -432,13 +464,25 @@ function App() {
     setSelectedId(found.length === 1 ? found[0].id : null);
   }
 
+  function openSystem(system) {
+    scrollPending.current = true;
+    setSearch(displayName(system.name));
+    setSubmitted(system.name);
+    setMatches([system]);
+    setSelectedId(system.id);
+  }
+
   const selected = matches ? matches.find((s) => s.id === selectedId) : null;
 
   return (
     <main className="page">
       <nav className="nav">
         <a className="brand" href="#home">PFAS / DECODER</a>
-        <a href="#about">About this project</a>
+        <span className="nav-links">
+          <a href="#nc-overview">NC overview</a>
+          {" · "}
+          <a href="#about">About this project</a>
+        </span>
       </nav>
 
       <section className="hero" id="home">
@@ -470,7 +514,7 @@ function App() {
       </section>
 
       {matches !== null && (
-        <section className="results">
+        <section className="results" ref={resultsRef}>
           <h2>Search results</h2>
 
           {matches.length === 0 && (
@@ -502,11 +546,13 @@ function App() {
             <SystemDetail
               key={selected.id}
               system={selected}
-              units={data.units}
               allSystems={data.systems}
               allContaminants={allContaminants}
               clusters={clusters}
               disclaimer={clusterData ? clusterData.disclaimer : ""}
+              limitData={limitData}
+              limitsFailed={limitsFailed}
+              chemInfo={chemInfo}
             />
           )}
 
@@ -517,6 +563,17 @@ function App() {
             </div>
           )}
         </section>
+      )}
+
+      {data && (
+        <StateOverview
+          data={data}
+          limitData={limitData}
+          chemInfo={chemInfo}
+          clusters={clusters}
+          onOpenSystem={openSystem}
+          displayName={displayName}
+        />
       )}
 
       <section className="features" id="about">
