@@ -102,9 +102,9 @@ function SiteFooter({ source }) {
               [CONGRESSIONAL APP CHALLENGE // SCV PROJECT]
             </span>
             <h2>
-              BE BOLD.
+              KNOW YOUR WATER.
               <br />
-              BUILD WISELY.
+              DECODE THE DATA. 
             </h2>
           </div>
           <div className="footer-meta">
