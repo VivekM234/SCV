@@ -1,36 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-
-const LIMITS_URL = "/data/epa_limits.json";
-
-let limitsPromise = null;
-function loadLimits() {
-  if (!limitsPromise) {
-    limitsPromise = fetch(LIMITS_URL)
-      .then((response) => {
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response.json();
-      })
-      .catch((error) => {
-        limitsPromise = null;
-        throw error;
-      });
-  }
-  return limitsPromise;
-}
-
-function toPpt(microgramsPerLiter) {
-  return Number((microgramsPerLiter * 1000).toPrecision(3));
-}
-
-function formatDate(iso) {
-  if (!iso) return "date not reported";
-  const d = new Date(iso + "T00:00:00");
-  return d.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
+import { formatDate, loadLimits, toPpt } from "./lib.js";
 
 function classify(item, limit, haveLimits) {
   const ppt = toPpt(item.maxValue);
