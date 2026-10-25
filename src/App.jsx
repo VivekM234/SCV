@@ -821,21 +821,6 @@ function App() {
             </div>
           </section>
 
-          <section className="block block-white" id="wells">
-            <div className="wrap well-grid">
-              <div>
-                <span className="tag">[05 // PRIVATE WELLS]</span>
-                <h2>NOT COVERED HERE</h2>
-              </div>
-              <p className="body-text">
-                UCMR 5 tested public water systems. It did not test private
-                wells, so nothing on this page describes a private well. Well
-                owners can have their water tested by a state-certified
-                laboratory, and a county health department can usually point
-                you to one.
-              </p>
-            </div>
-          </section>
             </>
           )}
 
