@@ -104,7 +104,7 @@ function SiteFooter({ source }) {
             <h2>
               KNOW YOUR WATER.
               <br />
-              DECODE THE DATA. 
+              DECODE THE DATA.
             </h2>
           </div>
           <div className="footer-meta">
