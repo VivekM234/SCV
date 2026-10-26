@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 import PfasPage from "./PfasPage.jsx";
+import ContactSection from "./Contact.jsx";
 import {
   EPA_DATA_FINDER,
   EPA_OCCURRENCE,
@@ -31,6 +32,7 @@ const ROUTES = {
   "#/chemistry": "chemistry",
   "#/scale": "scale",
   "#/directory": "directory",
+  "#/action": "action",
 };
 
 const TITLES = {
@@ -39,6 +41,7 @@ const TITLES = {
   chemistry: "Chemistry | PFAS Decoder",
   scale: "PPT Scale | PFAS Decoder",
   directory: "Water System Directory | PFAS Decoder",
+  action: "Take Action | PFAS Decoder",
 };
 
 function routeFromHash() {
@@ -59,6 +62,7 @@ const NAV = [
   ["#/chemistry", "// [02] CHEMISTRY", "chemistry"],
   ["#/scale", "// [03] PPT SCALE", "scale"],
   ["#/directory", "// [04] DIRECTORY", "directory"],
+  ["#/action", "// [05] TAKE ACTION", "action"],
   ["#/pfas", "// WHAT ARE PFAS", "pfas"],
 ];
 
@@ -129,6 +133,7 @@ function SiteFooter({ source }) {
             <a href="#/chemistry">CHEMISTRY</a>
             <a href="#/scale">PPT SCALE</a>
             <a href="#/directory">DIRECTORY</a>
+            <a href="#/action">TAKE ACTION</a>
             <a href="#/pfas">WHAT ARE PFAS</a>
           </nav>
         </div>
@@ -767,6 +772,17 @@ function App() {
                   <SystemDetail key={selected.id} system={selected} {...detailProps} />
                 )}
 
+                {selected && (
+                  <a className="action-link" href="#/action">
+                    <span className="action-link-tag">[05 // TAKE ACTION]</span>
+                    <strong>What can you do about PFAS in your water?</strong>
+                    <span>
+                      Who to contact, what to ask, and how to filter your
+                      drinking water →
+                    </span>
+                  </a>
+                )}
+
                 {matches.length > 0 && (
                   <div className="callout">
                     This page shows what was measured. It does not say whether
@@ -865,6 +881,24 @@ function App() {
           </section>
 
             </>
+          )}
+
+          {route === "action" && (
+          <section className="block" id="take-action">
+            <div className="wrap">
+              <div className="block-head">
+                <div>
+                  <span className="tag">[05 // TAKE ACTION]</span>
+                  <h2>WHAT YOU CAN DO ABOUT PFAS</h2>
+                </div>
+                <p className="mono-note">
+                  // CONTACT THE PEOPLE IN CHARGE, ASK THE RIGHT QUESTIONS, AND
+                  FILTER THE WATER YOU DRINK
+                </p>
+              </div>
+              <ContactSection system={selected} />
+            </div>
+          </section>
           )}
 
           {route === "directory" && (

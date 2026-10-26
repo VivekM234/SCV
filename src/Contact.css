@@ -1,0 +1,268 @@
+/* "Take action" tab.
+   Uses the same blueprint look as the rest of the site. */
+
+.contact {
+  padding: 28px;
+  background: var(--white);
+  border: 2px solid var(--black);
+}
+
+/* Body text matches the other tabs: Inter, 16-18px, roomy line height */
+.contact-lead,
+.contact-step-lead {
+  max-width: 60ch;
+  margin: 0 0 20px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.contact-step-lead {
+  color: var(--grey);
+}
+
+.contact-step-lead strong {
+  color: var(--black);
+}
+
+/* Step headings: black tag label, then a Space Grotesk heading,
+   the same pattern used on the Chemistry and What are PFAS tabs */
+.step-head {
+  margin: 48px 0 14px;
+  padding-top: 32px;
+  border-top: 1px solid var(--black);
+}
+
+.contact > .step-head:first-of-type {
+  margin-top: 28px;
+}
+
+.step-head h3 {
+  margin: 14px 0 0;
+  font-family: var(--display);
+  font-size: clamp(26px, 3.4vw, 38px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--black);
+  border-left: 1px solid var(--black);
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 24px;
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+}
+
+.contact-wide {
+  grid-column: 1 / -1;
+}
+
+.contact-card strong {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.contact-card p {
+  margin: 0;
+  color: #262624;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.contact-card p strong {
+  font-family: var(--sans);
+  font-size: inherit;
+  letter-spacing: 0;
+}
+
+.contact-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  text-transform: uppercase;
+}
+
+.contact .contact-how {
+  padding-top: 10px;
+  border-top: 1px dashed var(--soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Links look like the rest of the site: black, bold, underlined */
+.contact a {
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.contact a:hover {
+  color: var(--blue);
+}
+
+.contact-list summary {
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contact-list ul {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.contact-list li {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 8px;
+  padding: 10px 0;
+  border-top: 1px solid var(--soft);
+}
+
+.contact-district {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.contact-senators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 48px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.contact-senators li {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-ask {
+  padding: 20px 24px;
+  background: var(--canvas);
+  border: 1px solid var(--black);
+  border-left: 4px solid var(--black);
+}
+
+.contact-ask ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.contact-ask li,
+.tips li {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.contact-ask li + li {
+  margin-top: 8px;
+}
+
+.tips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--black);
+}
+
+.tips li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--soft);
+}
+
+.contact-note {
+  margin-top: 24px;
+}
+
+@media (max-width: 760px) {
+  .contact {
+    padding: 20px 16px;
+  }
+
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-card {
+    padding: 18px;
+  }
+
+  .step-head {
+    text-align: center;
+  }
+
+  .contact-lead,
+  .contact-step-lead,
+  .contact-ask li,
+  .tips li {
+    font-size: 16px;
+  }
+}
+
+/* Link from search results to the Take Action tab */
+.action-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 32px;
+  padding: 22px 24px;
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--black);
+  text-decoration: none;
+}
+
+.action-link:hover {
+  background: #1f1f1f;
+}
+
+.action-link-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: #bdbdb8;
+}
+
+.action-link strong {
+  font-family: var(--display);
+  font-size: clamp(20px, 2.6vw, 28px);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.action-link span:last-child {
+  font-size: 15px;
+  color: #e6e6e2;
+}
+
+@media (max-width: 640px) {
+  .action-link {
+    text-align: center;
+    align-items: center;
+  }
+}

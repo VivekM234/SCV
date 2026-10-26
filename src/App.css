@@ -2010,3 +2010,72 @@ h4 {
 .drop {
   fill: #5b9bd5;
 }
+
+/* ---------- Phones: center the layout ---------- */
+@media (max-width: 640px) {
+  /* Header: brand centered, tabs wrap onto centered rows instead of
+     running off the right edge */
+  .site-header-inner,
+  .site-header-left {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  /* Hero: centered text, tag, search box and water-drop graphic */
+  .hero-copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-copy .search-bar {
+    width: 100%;
+  }
+
+  .scale {
+    justify-self: center;
+    margin: 0 auto;
+  }
+
+  /* Section headings and labels on every tab */
+  .block-head,
+  .results .wrap > .tag,
+  .results .wrap > h2,
+  .pfas-hero {
+    text-align: center;
+  }
+
+  .block-head {
+    justify-content: center;
+  }
+
+  .results .wrap > .tag {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Number tiles under the search box */
+  .metric {
+    text-align: center;
+  }
+
+  /* Footer */
+  .footer-top,
+  .footer-bottom,
+  .footer-bottom nav {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-bottom,
+  .footer-bottom nav {
+    flex-wrap: wrap;
+  }
+}
