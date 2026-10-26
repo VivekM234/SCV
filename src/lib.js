@@ -85,7 +85,7 @@ export function systemStatus(system, limits) {
 export const STATUS_LABEL = {
   atOrAbove: "AT OR ABOVE LIMIT",
   below: "BELOW LIMIT",
-  nolimit: "NO LIMIT SET",
+  nolimit: "NO EPA-LIMITED PFAS",
   none: "NONE DETECTED",
   unknown: "LIMITS UNAVAILABLE",
 };

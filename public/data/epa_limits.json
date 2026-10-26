@@ -2,8 +2,12 @@
   "asOf": "October 20, 2026",
   "sourceUrl": "https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas",
   "limits": {
-    "PFOA": { "mclPpt": 4 },
-    "PFOS": { "mclPpt": 4 },
+    "PFOA": {
+      "mclPpt": 4
+    },
+    "PFOS": {
+      "mclPpt": 4
+    },
     "PFHxS": {
       "mclPpt": 10,
       "proposedForRemoval": true,
@@ -19,5 +23,59 @@
       "proposedForRemoval": true,
       "note": "It was still listed in the rule when this page was last updated."
     }
+  },
+  "guidelinesAsOf": "October 2026",
+  "guidelines": {
+    "PFBS": {
+      "ppt": 100,
+      "source": "Minnesota Department of Health",
+      "short": "Minnesota health guideline",
+      "url": "https://www.health.state.mn.us/communities/environment/hazardous/topics/pfashealth.html"
+    },
+    "PFBA": {
+      "ppt": 7000,
+      "source": "Minnesota Department of Health",
+      "short": "Minnesota health guideline",
+      "url": "https://www.health.state.mn.us/communities/environment/hazardous/topics/pfashealth.html"
+    },
+    "PFHxA": {
+      "ppt": 200,
+      "source": "Minnesota Department of Health",
+      "short": "Minnesota health guideline",
+      "url": "https://www.health.state.mn.us/communities/environment/hazardous/topics/pfashealth.html"
+    }
+  },
+  "totalPfas": {
+    "ppt": 30,
+    "source": "Health Canada",
+    "short": "Health Canada total-PFAS objective",
+    "url": "https://www.canada.ca/en/health-canada/services/publications/healthy-living/guidelines-canadian-drinking-water-quality-guideline-technical-document-perfluorooctane-sulfonate.html",
+    "compounds": [
+      "PFBA",
+      "PFPeA",
+      "PFHxA",
+      "PFHpA",
+      "PFOA",
+      "PFNA",
+      "PFDA",
+      "PFUnA",
+      "PFDoA",
+      "PFBS",
+      "PFPeS",
+      "PFHxS",
+      "PFHpS",
+      "PFOS",
+      "4:2 FTS",
+      "6:2 FTS",
+      "8:2 FTS",
+      "HFPO-DA",
+      "ADONA",
+      "9Cl-PF3ONS",
+      "11Cl-PF3OUdS",
+      "PFMPA",
+      "PFMBA",
+      "NFDHA",
+      "PFEESA"
+    ]
   }
 }

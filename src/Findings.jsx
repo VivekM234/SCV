@@ -1,28 +1,67 @@
 import { useEffect, useMemo, useState } from "react";
 import { formatDate, loadLimits, toPpt } from "./lib.js";
 
-function classify(item, limit, haveLimits) {
+// Each detected PFAS is compared with the strongest benchmark available:
+//   1. EPA's legal limit (MCL), if EPA set one;
+//   2. otherwise a state health-based guideline (Minnesota Department of
+//      Health), which is not a legal limit;
+//   3. otherwise Health Canada's precautionary objective for the TOTAL of
+//      25 PFAS, since no agency has a guideline for that PFAS alone.
+function classify(item, limit, guide, haveLimits) {
   const ppt = toPpt(item.maxValue);
   if (!haveLimits) return { level: "unknown", ppt };
-  if (!limit) return { level: "nolimit", ppt };
-  return { level: ppt >= limit.mclPpt ? "atOrAbove" : "below", ppt };
+  if (limit) return { level: ppt >= limit.mclPpt ? "atOrAbove" : "below", ppt };
+  if (guide) return { level: ppt >= guide.ppt ? "guideAbove" : "guideBelow", ppt };
+  return { level: "groupOnly", ppt };
 }
 
 const PILL_TEXT = {
   below: "Below EPA limit",
   atOrAbove: "At or above EPA limit",
-  nolimit: "No federal limit set",
+  guideBelow: "Below health guideline",
+  guideAbove: "At or above health guideline",
+  groupOnly: "Counts toward total-PFAS guideline",
   unknown: "Limit unavailable",
 };
 
-const RANK = { atOrAbove: 0, below: 1, nolimit: 2, unknown: 3 };
+// Which color each result uses (reuses the site's existing colors).
+const TONE = {
+  below: "below",
+  atOrAbove: "atOrAbove",
+  guideBelow: "below",
+  guideAbove: "atOrAbove",
+  groupOnly: "nolimit",
+  unknown: "nolimit",
+};
 
-function Summary({ rows, tested, haveLimits }) {
-  const over = rows.filter((r) => r.level === "atOrAbove");
-  const compared = rows.filter(
-    (r) => r.level === "below" || r.level === "atOrAbove"
-  );
-  const noLimit = rows.filter((r) => r.level === "nolimit");
+const RANK = {
+  atOrAbove: 0,
+  guideAbove: 1,
+  below: 2,
+  guideBelow: 3,
+  groupOnly: 4,
+  unknown: 5,
+};
+
+const listText = (names) =>
+  new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(names);
+
+// Adds the highest result for each PFAS on Health Canada's list of 25.
+// Those highs can come from different days, so this can overstate the true
+// total in any one sample. Treat it as an upper estimate.
+function totalPfas(rows, total) {
+  if (!total) return null;
+  const set = new Set(total.compounds);
+  const sum = rows
+    .filter((r) => set.has(r.item.contaminant))
+    .reduce((acc, r) => acc + r.ppt, 0);
+  return Number(sum.toPrecision(3));
+}
+
+function Summary({ rows, tested, haveLimits, total, totalPpt }) {
+  const overEpa = rows.filter((r) => r.level === "atOrAbove");
+  const overGuide = rows.filter((r) => r.level === "guideAbove");
+  const overTotal = total && totalPpt !== null && totalPpt >= total.ppt;
 
   let tone = "calm";
   let headline;
@@ -35,31 +74,43 @@ function Summary({ rows, tested, haveLimits }) {
     tone = "neutral";
     headline = `${rows.length} of ${tested} PFAS were found in this system's testing.`;
     detail =
-      "EPA's reference limits could not be loaded, so these results are not compared with them below.";
-  } else if (over.length > 0) {
+      "The reference limits could not be loaded, so these results are not compared with them below.";
+  } else if (overEpa.length > 0) {
     tone = "alert";
-    const names = new Intl.ListFormat("en", {
-      style: "long",
-      type: "conjunction",
-    }).format(over.map((r) => r.item.contaminant));
-    headline = `In at least one sample, ${names} ${
-      over.length > 1 ? "were" : "was"
-    } at or above EPA's legal limit.`;
-    detail =
-      "That is worth a closer look below and in your water utility's own water quality report. It is not a finding that the utility broke a rule: these are individual samples, and EPA checks averages over time. This site cannot tell you whether water is safe to drink.";
-  } else if (compared.length > 0) {
-    headline =
-      "PFAS were found, but every result that has an EPA limit was under it.";
-    detail = `${rows.length} of ${tested} PFAS were found. Under the limit is not the same as none.${
-      noLimit.length > 0
-        ? ` ${noLimit.length} of the PFAS found have no federal limit to compare with.`
+    headline = `In at least one sample, ${listText(
+      overEpa.map((r) => r.item.contaminant)
+    )} ${overEpa.length > 1 ? "were" : "was"} at or above EPA's legal limit.`;
+    detail = `${
+      overTotal
+        ? `The total of all PFAS found (${totalPpt} ppt) is also above ${total.source}'s ${total.ppt} ppt guideline. `
         : ""
-    }`;
+    }That is worth a closer look below and in your water utility's own water quality report. It is not a finding that the utility broke a rule: these are individual samples, and EPA checks averages over time. This site cannot tell you whether water is safe to drink.`;
+  } else if (overGuide.length > 0 || overTotal) {
+    tone = "alert";
+    const parts = [];
+    if (overGuide.length > 0) {
+      parts.push(
+        `${listText(overGuide.map((r) => r.item.contaminant))} ${
+          overGuide.length > 1 ? "were" : "was"
+        } at or above a health-based guideline`
+      );
+    }
+    if (overTotal) {
+      parts.push(
+        `the total of these PFAS (${totalPpt} ppt) was at or above ${total.source}'s ${total.ppt} ppt guideline`
+      );
+    }
+    headline = `No EPA legal limit was exceeded, but ${parts.join(", and ")}.`;
+    detail =
+      "Health-based guidelines are not legal limits, but health agencies set them as levels to stay below. It is worth asking your water utility about these results.";
   } else {
-    tone = "neutral";
     headline =
-      "PFAS were found, but EPA has no drinking-water limit for any of them.";
-    detail = `${rows.length} of ${tested} PFAS were found. With no legal limit to compare against, this page can show how much was found and how that compares with other North Carolina systems, but not whether the amount matters.`;
+      "PFAS were found, but every result was below EPA limits and health-based guidelines.";
+    detail = `${rows.length} of ${tested} PFAS were found.${
+      total && totalPpt !== null
+        ? ` Together they add up to about ${totalPpt} ppt, below ${total.source}'s ${total.ppt} ppt guideline for total PFAS.`
+        : ""
+    } Below a guideline is not the same as none.`;
   }
 
   return (
@@ -73,13 +124,28 @@ function Summary({ rows, tested, haveLimits }) {
           <span>of {tested} PFAS found</span>
         </div>
         <div>
-          <strong>{haveLimits ? over.length : "–"}</strong>
+          <strong>{haveLimits ? overEpa.length : "–"}</strong>
           <span>at or above an EPA limit</span>
         </div>
+        {haveLimits && total && rows.length > 0 && (
+          <div>
+            <strong>
+              {totalPpt} <small>ppt</small>
+            </strong>
+            <span>
+              total PFAS · guideline {total.ppt} ppt
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+const MDH_URL =
+  "https://www.health.state.mn.us/communities/environment/hazardous/topics/pfashealth.html";
+const HC_URL =
+  "https://www.canada.ca/en/health-canada/services/publications/healthy-living/guidelines-canadian-drinking-water-quality-guideline-technical-document-perfluorooctane-sulfonate.html";
 
 function Explainer({ asOf, sourceUrl }) {
   return (
@@ -107,9 +173,23 @@ function Explainer({ asOf, sourceUrl }) {
           was below the smallest amount the lab can reliably measure.
         </li>
         <li>
-          <strong>No limit does not mean safe.</strong> Most PFAS have no
-          federal limit yet, so there is nothing official to compare them
-          with.
+          <strong>Health-based guidelines</strong> are used when EPA has no
+          legal limit. They are levels health agencies recommend staying
+          below, but they are not legal limits. This page uses the{" "}
+          <a href={MDH_URL} target="_blank" rel="noreferrer">
+            Minnesota Department of Health ↗
+          </a>{" "}
+          values for PFBS (100 ppt), PFBA (7,000 ppt) and PFHxA (200 ppt).
+        </li>
+        <li>
+          <strong>Total PFAS.</strong> Most PFAS have no guideline of their
+          own, so this page also adds them up and compares the total with{" "}
+          <a href={HC_URL} target="_blank" rel="noreferrer">
+            Health Canada&rsquo;s ↗
+          </a>{" "}
+          precautionary objective of 30 ppt for 25 PFAS combined. The total
+          adds the highest result for each PFAS, which may come from different
+          days, so it can be higher than any single sample.
         </li>
         <li>
           <strong>Limits are changing.</strong> The limits on this page were
@@ -130,17 +210,29 @@ function Explainer({ asOf, sourceUrl }) {
   );
 }
 
-function ChemicalCard({ row, stat, units, fullName }) {
-  const { item, limit, level, ppt } = row;
+function ChemicalCard({ row, stat, units, fullName, total, totalPpt }) {
+  const { item, limit, guide, level, ppt } = row;
+  const tone = TONE[level];
+
+  // The line drawn on the bar: EPA limit, health guideline, or the
+  // total-PFAS objective (compared against this system's total).
+  let bench = null;
+  if (limit) bench = { value: ppt, line: limit.mclPpt, label: `EPA limit ${limit.mclPpt} ppt` };
+  else if (guide) bench = { value: ppt, line: guide.ppt, label: `Health guideline ${guide.ppt.toLocaleString("en-US")} ppt` };
+  else if (level === "groupOnly" && total && totalPpt !== null)
+    bench = { value: totalPpt, line: total.ppt, label: `Total-PFAS guideline ${total.ppt} ppt` };
 
   let fill = 0;
   let marker = null;
   let caption = "";
 
-  if (level === "below" || level === "atOrAbove") {
-    const scaleMax = Math.max(ppt, limit.mclPpt) * 1.3;
-    fill = (ppt / scaleMax) * 100;
-    marker = (limit.mclPpt / scaleMax) * 100;
+  if (bench) {
+    const scaleMax = Math.max(bench.value, bench.line) * 1.3;
+    fill = (bench.value / scaleMax) * 100;
+    marker = (bench.line / scaleMax) * 100;
+    if (level === "groupOnly") {
+      caption = `Bar shows this system's total PFAS (${totalPpt} ppt), which includes ${item.contaminant}.`;
+    }
   } else if (stat && stat.max > 0) {
     const maxPpt = toPpt(stat.max);
     fill = Math.min(100, (ppt / maxPpt) * 100);
@@ -155,8 +247,11 @@ function ChemicalCard({ row, stat, units, fullName }) {
     sentence = `The highest sample (${date}) was ${ppt} ppt, ${how} EPA's ${limit.mclPpt} ppt limit.`;
   } else if (level === "below") {
     sentence = `The highest sample (${date}) was ${ppt} ppt, under EPA's ${limit.mclPpt} ppt limit.`;
-  } else if (level === "nolimit") {
-    sentence = `The highest sample (${date}) was ${ppt} ppt. EPA has not set a drinking-water limit for ${item.contaminant}, so there is no legal line to compare this with.`;
+  } else if (level === "guideAbove" || level === "guideBelow") {
+    const where = level === "guideAbove" ? "at or above" : "under";
+    sentence = `The highest sample (${date}) was ${ppt} ppt, ${where} the ${guide.source}'s health-based guideline of ${guide.ppt.toLocaleString("en-US")} ppt.`;
+  } else if (level === "groupOnly" && total) {
+    sentence = `The highest sample (${date}) was ${ppt} ppt. Health agencies have not set a guideline for ${item.contaminant} by itself, so it is judged as part of the total: ${total.source} recommends keeping 25 PFAS combined below ${total.ppt} ppt, and this system's total is about ${totalPpt} ppt.`;
   } else {
     sentence = `The highest sample (${date}) was ${ppt} ppt.`;
   }
@@ -169,13 +264,13 @@ function ChemicalCard({ row, stat, units, fullName }) {
   }
 
   return (
-    <div className={`finding ${level}`}>
+    <div className={`finding ${tone}`}>
       <div className="finding-top">
         <div>
           <strong className="finding-name">{item.contaminant}</strong>
           {fullName && <span className="note">{fullName}</span>}
         </div>
-        <span className={`pill ${level}`}>{PILL_TEXT[level]}</span>
+        <span className={`pill ${tone}`}>{PILL_TEXT[level]}</span>
       </div>
 
       <p className="finding-number">
@@ -189,22 +284,28 @@ function ChemicalCard({ row, stat, units, fullName }) {
         className="meter"
         role="img"
         aria-label={`${item.contaminant}: ${ppt} ppt${
-          limit ? `, EPA limit ${limit.mclPpt} ppt` : ""
+          bench ? `, ${bench.label}` : ""
         }`}
       >
         <div
-          className={`meter-fill ${level}`}
+          className={`meter-fill ${tone}`}
           style={{ width: `${Math.max(2, fill)}%` }}
         />
         {marker !== null && (
           <div className="meter-limit" style={{ left: `${marker}%` }}>
-            <span>EPA limit {limit.mclPpt} ppt</span>
+            <span>{bench.label}</span>
           </div>
         )}
       </div>
 
       {caption && <p className="note">{caption}</p>}
       <p>{sentence}</p>
+      {guide && (
+        <p className="note">
+          A health-based guideline is a level a health agency recommends
+          staying below. It is not a legal limit.
+        </p>
+      )}
       {limit && limit.proposedForRemoval && (
         <p className="note">
           EPA has proposed removing this limit. {limit.note}
@@ -260,25 +361,36 @@ export default function Findings({ system, units, allSystems, clusters }) {
 
   const haveLimits = Boolean(limitData);
   const limits = limitData ? limitData.limits : {};
+  const guides = (limitData && limitData.guidelines) || {};
+  const total = (limitData && limitData.totalPfas) || null;
   const tested = system.detected.length + system.notDetected.length;
 
   const rows = system.detected
     .map((item) => {
       const limit = limits[item.contaminant];
-      return { item, limit, ...classify(item, limit, haveLimits) };
+      const guide = limit ? null : guides[item.contaminant] || null;
+      return { item, limit, guide, ...classify(item, limit, guide, haveLimits) };
     })
     .sort((a, b) => RANK[a.level] - RANK[b.level] || b.ppt - a.ppt);
+  const totalPpt = haveLimits ? totalPfas(rows, total) : null;
 
   return (
     <>
-      <Summary rows={rows} tested={tested} haveLimits={haveLimits} />
+      <Summary
+        rows={rows}
+        tested={tested}
+        haveLimits={haveLimits}
+        total={total}
+        totalPpt={totalPpt}
+      />
 
       {rows.length > 0 && (
         <>
           <h4>Chemicals found in this system</h4>
           <p className="note">
-            Green means below an EPA limit, orange means at or above one, and
-            gray means EPA has no limit for that chemical.
+            Green means below an EPA limit or health-based guideline, and
+            orange means at or above one. Gray means the chemical has no
+            guideline of its own and is judged as part of the total PFAS.
           </p>
           {rows.map((row) => (
             <ChemicalCard
@@ -286,6 +398,8 @@ export default function Findings({ system, units, allSystems, clusters }) {
               row={row}
               stat={stats[row.item.contaminant]}
               units={units}
+              total={total}
+              totalPpt={totalPpt}
               fullName={
                 clusters && clusters[row.item.contaminant]
                   ? clusters[row.item.contaminant].fullName
